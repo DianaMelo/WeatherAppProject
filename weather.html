@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Weather App</title>
+</head>
+<body id="body">
+    
+    <div class= "bigContainer">
+    <h1 id="nameGreeting">Hello</h1>
+    
+    <div class="main-container">
+
+
+  
+<div class="insider">
+
+<div class="left">
+   <p class="mainTitle" id="cityTitle" ><i class="fas fa-map-marker-alt" id="location"></i><span id="currentCity">...</span></p>  
+ <h3 class="normalText"><span id="day">Thursday</span> <span id="time">22:00</span></h3>
+   
+ <p class="smallText" id="fullDate">...</p>
+    
+ <h2 class="textBig" id="textBig">...</h2>
+ 
+</div>
+
+<div class="right">
+    <form id="searchForm" autocomplete="off" auto-focus="on">
+        <input type="submit" value="📌" id="currentLocation">
+        <input
+          type="text"
+          value=""
+          name="cityInput"
+          id="cityInput"
+          placeholder="Type another city..."
+        />
+        <input
+          type="submit"
+          value="Search"
+          id="searchButton"
+        />
+      </form>
+      <p class="bigTemp" id="bigTempText"><span id="bigTemp">0</span>ºC</p>
+    <p class="tempNav">Min <span id="minTemp">0</span>º<span id="maxTempSpan">Max <span id="maxTemp">0</span>º</span>
+         </p>
+ 
+
+ <img src="imgs/cloud.png" alt="image Weather" id="imgWeather">
+
+    <p class="changeTemp" id="changeTemp">Change to ºF</p>
+</div>
+
+    </div>
+
+
+    <nav>
+        <div class="navbarBottom">
+        <p class="bottomText" >Wind <span id="wind">0</span>km/h</p>
+        <p class="bottomText" >Feels like <span id="feelsLike">0</span>º</p>
+        <p class="bottomText" >Precipitation <span id="precipitation">0</span>%</p>
+        <p class="bottomText" >Humidity <span id="humidity">0</span>%</p>
+        <i class="fas fa-plus" id="plus"></i>
+        <i class="far fa-heart" id="heart"></i>
+        <a href="https://en.wikipedia.org/wiki/Porto" target="_blank"><i class="fas fa-university" id="city"></i></a>
+    </nav>
+    <div class="bottomDiv" id="bottomDiv">
+        <h3 class="titleDetails">More details <i class="far fa-times-circle cancelIcon" id="cancelButton"></i></h3>
+        <table>
+            <tr>
+                <td><img src="imgs/pressure.png" alt="iconPressure" class="iconImage"> <span>Pressure:</span> 1005.8mb</td>
+                
+                <td><img src="imgs/uv.png" alt="iconUv" class="iconImage"> <span>Index:</span> 2 of 10</td>
+                
+                <td><img src="imgs/sunrise.png" alt="iconSunrise" class="iconImage"> <span>Sunrise:</span> 07h41</td>
+                </tr>
+
+                <tr>
+                <td><img src="imgs/visibility.png" alt="iconVisibility" class="iconImage iconImageSmall"> <span>Visibility:</span> 12.87km</>
+               
+                <td><img src="imgs/moon.png" alt="iconMoon" class="iconImage iconImageBig"> <span>Phase:</span> Waning Crescent</td>
+                
+                <td><img src="imgs/sunset.png" alt="iconSunset" class="iconImage "> <span>Sunset:</span> 17h56</td>
+            </tr>
+        </table>
+</div>
+    </div>
+
+
+
+
+    <div class="right-container" id="right-container">
+        <ul>
+            <li>Tue <span class="tempColor"><span class="tempSide">7</span>º / <span class="tempSide">13</span>º</span> <i class="fas icon fa-sun"></i></li>
+            <li>Wed<span class="tempColor"><span class="tempSide">7</span>º / <span class="tempSide">13</span>º</span> <i class="fas icon fa-sun"></i></li>
+            <li>Thu <span class="tempColor"><span class="tempSide">7</span>º / <span class="tempSide">13</span>º</span> <i class="fas icon fa-cloud-sun-rain"></i></li>
+            <li>Fri <span class="tempColor"><span class="tempSide">7</span>º / <span class="tempSide">13</span>º</span> <i class="fas icon fa-cloud-sun"></i></li>
+            <li>Sat <span class="tempColor"><span class="tempSide">7</span>º / <span class="tempSide">13</span>º</span> <i class="fas icon fa-cloud-showers-heavy"></i></li>
+            <li>Sun <span class="tempColor"><span class="tempSide">7</span>º / <span class="tempSide">13</span>º</span> <i class="fas icon fa-cloud-rain"></i></li>
+        </ul>
+    </div>
+</div>
+    </div>
+
+
+
+
+    <script src="https://kit.fontawesome.com/aed2d7d7b3.js" crossorigin="anonymous"></script>
+    <script src="scripta.js"></script> 
+</body>
+</html>
