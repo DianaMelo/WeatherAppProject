@@ -376,3 +376,14 @@ li:hover {
   color: rgba(0, 0, 0, 0.788);
   margin-left: 30px;
 }
+#gitLink{
+  text-decoration: none;
+  color: #fff;
+  margin-left:50px ;
+}
+#gitLink:hover{
+  font-weight: bold;
+}
+#gitLink:visited{
+  color: #000;
+}
