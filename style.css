@@ -1,0 +1,282 @@
+.row {
+  /*border: 1px solid blue;*/
+  padding: 0;
+  margin: 0;
+}
+.col {
+  /*border: 1px solid red; */
+  padding: 0;
+}
+nav p {
+  display: inline-block;
+}
+.imgDiv {
+  display: inline-block;
+}
+#imgWeather {
+  width: 20vw;
+}
+body {
+  font-family: "Hind", sans-serif;
+  font-family: "Titillium Web", sans-serif;
+  color: rgba(0, 0, 0, 0.788);
+  background: #efefbb;
+  background: -webkit-linear-gradient(to right, #b2afcf, #dddd86d3);
+  background: linear-gradient(to right, #b2afcf, #dddd86d3);
+}
+.container {
+  width: 70%;
+  height: 95vh;
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+  background-color: #624c8f;
+  border-radius: 2px;
+  color: rgba(0, 0, 0, 0.788);
+  box-shadow: rgba(68, 68, 68, 0.774) 0px 8px 8px 0;
+  text-align: center;
+  color: #fff;
+}
+h1 {
+  font-size: 2em;
+}
+h2 {
+  font-size: 1.5em;
+}
+#currentLocation,
+#searchButton {
+  height: 4.5vh;
+  outline: none;
+  border: none;
+  background-color: #9f8cc5b4;
+  box-shadow: rgba(85, 86, 105, 0.774) 0px 2px 4px 0;
+}
+#searchButton {
+  margin: 2vh 0;
+}
+input[type="text"] {
+  background-color: #fff;
+  width: 35vw;
+  height: 4.5vh;
+  font-weight: 500;
+  border: 1.5px solid #fff;
+  box-shadow: rgba(85, 86, 105, 0.774) 0px 2px 8px 0;
+  outline: none;
+}
+.greetingDiv {
+  margin: 0vw 0;
+  margin-left: 1vw;
+  display: none;
+}
+.searchDiv {
+  margin-top: 2vw;
+  margin: 0 auto;
+}
+.dateDiv p {
+  letter-spacing: 1.5px;
+  margin-bottom: 3px;
+}
+.cityDiv {
+  color: rgb(255, 238, 0);
+  margin-top: -10px;
+  margin-left: 2vw;
+  width: 60vw;
+  max-width: 60vw;
+  height: 10vh;
+  max-height: 15vh;
+  font-size: 2.5vw;
+}
+.cityDiv h1 {
+  height: 10vh;
+  line-height: 10vh;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.descriptionDiv {
+  margin-top: 4vh;
+  font-size: 5.1vw;
+}
+#imgWeather {
+  display: none;
+}
+#bigTemp {
+  font-size: 5em;
+}
+.tempNav {
+  display: block;
+  width: 14vw;
+  height: 8vh;
+  padding: 0;
+  margin-top: 3vh;
+  margin-left: -2vh;
+}
+#minTempP,
+#maxTempP {
+  border-bottom: 1px solid transparent;
+  margin: 0;
+  padding: 5px;
+  font-size: 1em;
+}
+#maxTempP {
+  border-bottom: 1px solid white;
+}
+.divTempNextDays,
+.divDetails {
+  margin-top: 4vh;
+  padding: 2px;
+  margin: 2vh;
+}
+.rowDetailsP div {
+  display: inline-block;
+}
+.rownextDaysP,
+.rowDetailsP {
+  padding-bottom: 1vh;
+  text-align: left;
+  font-weight: bold;
+  padding-top: 1vh;
+}
+#plusDiv {
+  margin-left: 2vw;
+  text-align: right;
+}
+.colDivDetails {
+  padding-top: 1vh;
+  margin-left: 4px;
+  margin-right: 4px;
+  background-color: #6e5b94f6;
+}
+.colDivDetails img {
+  width: 20px;
+}
+.textTemp {
+  padding-top: 0;
+  font-size: 0.8em;
+}
+.minTemp {
+  color: rgb(201, 199, 199);
+}
+/*media queries, 1 breakpoint only*/
+@media screen and (min-width: 900px) {
+  .row {
+    padding: 0;
+    margin: 0;
+  }
+  .col {
+    padding: 0;
+  }
+  nav p {
+    display: inline-block;
+  }
+  .imgDiv {
+    display: inline-block;
+  }
+  #imgWeather {
+    width: 15vw;
+  }
+  #plusDiv {
+    margin-left: 1.6vw;
+  }
+  .container {
+    height: 98vh;
+    width: 40%;
+    margin-top: 10px;
+  }
+  h1 {
+    font-size: 2em;
+  }
+  h2 {
+    font-size: 0.7em;
+  }
+  #searchForm,
+  #currentLocation,
+  #searchButton {
+    margin-left: 0;
+  }
+  #nameGreeting {
+    font-size: 1.2em;
+  }
+  input[type="text"] {
+    background-color: #fff;
+    width: 25vw;
+    height: 4.5vh;
+    font-weight: 500;
+    border: 1.5px solid #fff;
+    box-shadow: rgba(85, 86, 105, 0.774) 0px 2px 8px 0;
+    outline: none;
+  }
+  .greetingDiv {
+    display: inline-block;
+    margin-left: 1.5vw;
+  }
+  .dateDiv {
+    display: inline-block;
+    text-align: right;
+  }
+  .searchDiv {
+    margin-top: 2vw;
+    margin: 0 auto;
+  }
+  #celsius {
+    margin-left: 0.8vw;
+  }
+  .cityDiv {
+    margin-top: 0px;
+    display: block;
+    width: 100%;
+    font-size: 1.5vw;
+  }
+  .descriptionDiv {
+    margin-top: 3vh;
+    font-size: 6.4vw;
+  }
+  #imgWeather {
+    display: block;
+    margin-top: -3vh;
+  }
+  #bigTemp {
+    font-size: 5em;
+    margin-top: 3vh;
+    margin-left: -2vw;
+  }
+  .tempNav {
+    display: block;
+    width: 5vw;
+    height: 10vh;
+    padding: 0;
+    margin-top: 3vh;
+    margin-left: 3vh;
+  }
+  #minTempP,
+  #maxTempP {
+    border-bottom: 1px solid transparent;
+    margin: 0;
+    padding: 5px;
+    font-size: 1em;
+  }
+  #maxTempP {
+    border-bottom: 1px solid #fff;
+  }
+  .divTempNextDays {
+    margin-top: -2vh;
+  }
+  .colDivDetails {
+    height: 4vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+  }
+  .colDivDetails img {
+    width: 25px;
+    margin-top: 1vh;
+  }
+  .textTemp {
+    padding-top: 1vh;
+    font-size: 0.9em;
+  }
+  .minTemp {
+    padding-top: 0;
+  }
+  .bottomTextTemp {
+    padding-top: 0vh;
+  }
+}

@@ -3,14 +3,13 @@
 //document.querySelector("time").innerHTML = "Hello";
 
 //change greeting with your name upon loading the page
-greeting();
-function greeting() {
+changeColor();
+function changeColor() {
   let now = new Date();
   now.getHours();
   let hour = now.getHours();
 
-  // let name = prompt("What is your name?");
-  let sentence = document.querySelector("h1#nameGreeting");
+  let sentence = document.querySelector("h2#nameGreeting");
 
   if (hour >= 0 && hour <= 6) {
     sentence.innerHTML = `Good morning <strong>${name}</strong>`;
@@ -48,7 +47,7 @@ let days = [
 ];
 let day = days[now.getDay()];
 let currentDay = document.getElementById("day");
-currentDay.innerHTML = day;
+currentDay.innerHTML = `<strong>${day}</srong>`;
 
 //change the hours and minutes
 now.getHours();
@@ -81,8 +80,9 @@ let year = now.getFullYear();
 document.getElementById("fullDate").innerHTML = `${date} of ${month}, ${year}`;
 
 //change Location/City accordingly to the search input
+//!!! if I press enter it call the function to current location and not the form city search !!!
 let locationButton = document
-  .querySelector("#location")
+  .querySelector("#currentLocation")
   .addEventListener("click", showTemp); //should be geolocation
 let form = document
   .querySelector("#searchForm")
@@ -94,13 +94,18 @@ let buttonSearch = document
 //show temperature according to our search input
 function showTemp(response) {
   console.log(response.data);
-  console.log(response.data.main.temp);
+  //console.log(response.data.main.temp);
   //show searched city
   let city = response.data.name;
-  let heading = (document.querySelector("#currentCity").innerHTML = city);
+  let country = response.data.sys.country;
+  let heading = (document.querySelector(
+    "#currentCity"
+  ).innerHTML = `${city}, ${country}`);
   //define and show main temp
   let temperature = Math.round(response.data.main.temp);
-  let bigTemp = (document.querySelector("#bigTemp").innerHTML = temperature);
+  let bigTemp = (document.querySelector(
+    "#bigTemp"
+  ).innerHTML = `${temperature} <small>º</small>`);
   //define and show min temp
   let minumumTemperarure = Math.round(response.data.main.temp_min);
   let minTemp = (document.querySelector(
@@ -124,10 +129,14 @@ function showTemp(response) {
   let feelsLike = (document.querySelector(
     "#feelsLike"
   ).innerHTML = feelsLikeInput);
-  //define and show precipation //only when it rains it shows the precipitation
+  //define and show cloud %cloud
+  let cloudsInput = Math.round(response.data.clouds.all);
+  let clouds = (document.querySelector("#clouds").innerHTML = cloudsInput);
   //define and show humidity
   let humidtyInput = Math.round(response.data.main.humidity);
   let humidity = (document.querySelector("#humidity").innerHTML = humidtyInput);
+
+  changeIcon(response);
 }
 
 // change the city in the URL to the searched input
@@ -166,6 +175,52 @@ function getCurrentLocation(event) {
 
 searchCity("Porto"); //makes the default value of Porto, instead of showing empty once you load the page
 
+function changeIcon(response) {
+  //change icon
+  let icon = document.querySelector("#imgWeather");
+  //let forecast = document.querySelector("#");
+  let weatherInput = response.data.weather[0].description;
+  let weatherInputMain = response.data.weather[0].main;
+
+  if (weatherInputMain === "Clear") {
+    icon.setAttribute("src", "imgs/bSun.png");
+  } else if (weatherInputMain === "Rain") {
+    icon.setAttribute("src", "imgs/bRain.png");
+  } else if (weatherInput === "light rain") {
+    icon.setAttribute("src", "imgs/bRainy.png");
+  } else if (
+    (weatherInputMain === "Clouds" && weatherInput === "few clouds") ||
+    weatherInput === "scattered clouds"
+  ) {
+    icon.setAttribute("src", "imgs/bCloudy.png");
+  } else if (weatherInputMain === "Clouds") {
+    icon.setAttribute("src", "imgs/bCloud.png");
+  } else if (weatherInputMain === "Snow") {
+    icon.setAttribute("src", "imgs/bSnow.png");
+  } else if (weatherInputMain === "Haze") {
+    icon.setAttribute("src", "imgs/bHazeFog.png");
+  } else {
+    icon.setAttribute("src", "imgs/bStorm.png");
+  }
+}
+//see how to change the icon at night(hour)
+
+/*data options
+data.weather[0].main="Rain"/.description="light rain"
+data.weather[0].main="Rain"/.description="moderate rain"
+data.weather[0].main="Rain"/.description="heavy intensity rain"
+data.weather[0].main="Drizzle"/.description="light intensity drizzle"
+data.weather[0].main="Clear"/.description="clear sky"
+data.weather[0].main="Haze"/.description="haze"
+data.weather[0].main="Clouds"/.description="broken clouds"
+data.weather[0].main="Clouds"/.description="overcast clouds"
+data.weather[0].main="Clouds"/.description="scattered clouds"
+data.weather[0].main="Clouds"/.description="few clouds"
+data.weather[0].main="Snow"/.description="light snow"
+data.weather[0].main="Snow"/.description="heavy snow"
+*/
+
+/*
 //change cº to fº
 let changTempButton = document.querySelector("#changeTemp");
 changTempButton.addEventListener("click", changeTemperature);
@@ -200,14 +255,17 @@ function changeTemperature() {
   tempNext = Math.round(tempNext * 1.8 + 32);
   nextDay.innerHTML = `${tempNext}`;
 }
+*/
 
+/*NA
 //show more details button
 let plusButton = document.querySelector("#plus");
 plusButton.addEventListener("click", showMore);
 function showMore() {
   let div = document.getElementById("bottomDiv");
-  div.style.display = "block";
-  //document.body.style.background = alert("ok");
+  let iconPlus = document.getElementById("plus");
+ div.style.display = "block";
+ iconPlus.style.display = "none";
 }
 
 //cancel show more details button
@@ -219,3 +277,19 @@ function cancelButton() {
   let div = document.getElementById("bottomDiv");
   div.style.display = "none";
 }
+*/
+
+/*data options
+data.weather[0].main="Rain"/.description="light rain"
+data.weather[0].main="Rain"/.description="moderate rain"
+data.weather[0].main="Rain"/.description="heavy intensity rain"
+data.weather[0].main="Drizzle"/.description="light intensity drizzle"
+data.weather[0].main="Clear"/.description="clear sky"
+data.weather[0].main="Haze"/.description="haze"
+data.weather[0].main="Clouds"/.description="broken clouds"
+data.weather[0].main="Clouds"/.description="overcast clouds"
+data.weather[0].main="Clouds"/.description="scattered clouds"
+data.weather[0].main="Clouds"/.description="few clouds"
+data.weather[0].main="Snow"/.description="light snow"
+data.weather[0].main="Snow"/.description="heavy snow"
+*/
