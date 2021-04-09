@@ -156,6 +156,19 @@ input[type="text"] {
 .minTemp {
   color: rgb(201, 199, 199);
 }
+#gitLink{
+  text-decoration: none;
+  color: #fff;
+  float: right;
+  margin-right: 2vw;
+  margin-top: -3vh;
+}
+#gitLink:hover{
+  font-weight: bold;
+}
+#gitLink:visited{
+  color: #000;
+}
 /*media queries, 1 breakpoint only*/
 @media screen and (min-width: 900px) {
   .row {
