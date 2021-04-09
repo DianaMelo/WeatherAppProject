@@ -52,7 +52,11 @@ currentDay.innerHTML = `<strong>${day}</srong>`;
 //change the hours and minutes
 now.getHours();
 let hour = now.getHours();
+hour = ("0" + hour).slice(-2);
+//to convert the hours to two digits
 let minutes = now.getMinutes();
+minutes = ("0" + minutes).slice(-2);
+//to convert the minutes to two digits
 let hours = `${hour}:${minutes}`;
 
 let currentTime = document.getElementById("time");
@@ -96,6 +100,8 @@ function showTemp(response) {
   console.log(response.data);
   //console.log(response.data.main.temp);
   //show searched city
+  let sunriseText = document.querySelector("#sunrise");
+  let sunsetText = document.querySelector("#sunset");
   let city = response.data.name;
   let country = response.data.sys.country;
   let heading = (document.querySelector(
@@ -135,7 +141,16 @@ function showTemp(response) {
   //define and show humidity
   let humidtyInput = Math.round(response.data.main.humidity);
   let humidity = (document.querySelector("#humidity").innerHTML = humidtyInput);
-
+  let visibility = Number(response.data.sys.visibility);
+  let timezone = response.data.timezone;
+  sunriseText.innerHTML = sunTime(
+    (response.data.sys.sunrise + timezone - 3600) * 1000
+  );
+  //3600 == minus 1h because of summer time from Mar 28 –  Oct 31
+  sunsetText.innerHTML = sunTime(
+    (response.data.sys.sunset + timezone - 3600) * 1000
+  );
+  //alert(typeof(visibility));
   changeIcon(response);
 }
 
@@ -202,6 +217,15 @@ function changeIcon(response) {
   } else {
     icon.setAttribute("src", "imgs/bStorm.png");
   }
+}
+
+function sunTime(timestamp) {
+  let date = new Date(timestamp);
+  let hours = date.getHours();
+  hours = ("0" + hours).slice(-2);
+  let minutes = date.getMinutes();
+  minutes = ("0" + minutes).slice(-2);
+  return `${hours}:${minutes}`;
 }
 //see how to change the icon at night(hour)
 
