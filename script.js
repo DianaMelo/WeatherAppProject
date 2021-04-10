@@ -199,7 +199,7 @@ function changeIcon(response) {
 
   if (weatherInputMain === "Clear") {
     icon.setAttribute("src", "imgs/bSun.png");
-  } else if (weatherInputMain === "Rain") {
+  } else if (weatherInputMain === "Rain" || weatherInput === "shower rain") {
     icon.setAttribute("src", "imgs/bRain.png");
   } else if (weatherInput === "light rain") {
     icon.setAttribute("src", "imgs/bRainy.png");
@@ -213,9 +213,11 @@ function changeIcon(response) {
   } else if (weatherInputMain === "Snow") {
     icon.setAttribute("src", "imgs/bSnow.png");
   } else if (weatherInputMain === "Haze") {
-    icon.setAttribute("src", "imgs/bHazeFog.png");
-  } else {
+    icon.setAttribute("src", "imgs/bHaze.png");
+  } else if (weatherInputMain === "Thunderstorm") {
     icon.setAttribute("src", "imgs/bStorm.png");
+  } else {
+    icon.setAttribute("src", "imgs/bFogMist.png");
   }
 }
 
