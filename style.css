@@ -99,7 +99,7 @@ input[type="text"] {
 #imgWeather {
   display: none;
 }
-#bigTemp {
+#bigTemp, #degrees {
   font-size: 5em;
 }
 .tempNav {
@@ -156,20 +156,20 @@ input[type="text"] {
 .minTemp {
   color: rgb(201, 199, 199);
 }
-#gitLink{
+#gitLink {
   text-decoration: none;
   color: #fff;
   float: right;
   margin-right: 2vw;
   margin-top: -3vh;
 }
-#gitLink:hover{
+#gitLink:hover {
   font-weight: bold;
 }
-#gitLink:visited{
+#gitLink:visited {
   color: #000;
 }
-.sunTime{
+.sunTime {
   display: none;
 }
 /*media queries, 1 breakpoint only*/
@@ -236,6 +236,16 @@ input[type="text"] {
   #celsius {
     margin-left: 0.8vw;
   }
+  #celsius:hover,
+  #fahrenheit:hover {
+    cursor: pointer;
+     padding: 1px;
+  }
+  #celsius:active,
+  #fahrenheit:active {
+   border: 1px solid #fff;
+
+  }
   .cityDiv {
     margin-top: 0px;
     display: block;
@@ -278,7 +288,6 @@ input[type="text"] {
   }
   .colDivDetails {
     height: 4vh;
-  
   }
   .colDivDetails img {
     width: 25px;
@@ -294,7 +303,7 @@ input[type="text"] {
   .bottomTextTemp {
     padding-top: 0vh;
   }
-  .sunTime{
-  display: block;
-}
+  .sunTime {
+    display: block;
+  }
 }

@@ -100,6 +100,8 @@ function showTemp(response) {
   console.log(response.data);
   //console.log(response.data.main.temp);
   //show searched city
+  celsiusTemp = response.data.main.temp;
+
   let sunriseText = document.querySelector("#sunrise");
   let sunsetText = document.querySelector("#sunset");
   let city = response.data.name;
@@ -107,52 +109,60 @@ function showTemp(response) {
   let heading = (document.querySelector(
     "#currentCity"
   ).innerHTML = `${city}, ${country}`);
+
+  celsiusTemperature = Math.round(response.data.main.temp);
+
+  //define main temp as the celsius temperature
+  let temperature = celsiusTemperature;
   //define and show main temp
-  let temperature = Math.round(response.data.main.temp);
-  let bigTemp = (document.querySelector(
+  let mainTemp = (document.querySelector(
     "#bigTemp"
-  ).innerHTML = `${temperature} <small>º</small>`);
+  ).innerHTML = `${temperature}`);
   //define and show min temp
-  let minumumTemperarure = Math.round(response.data.main.temp_min);
-  let minTemp = (document.querySelector(
-    "#minTemp"
-  ).innerHTML = minumumTemperarure);
+  let minTemp = (document.querySelector("#minTemp").innerHTML = Math.round(
+    response.data.main.temp_min
+  ));
   //define and show max temp
-  let maximumTemperature = Math.round(response.data.main.temp_max);
-  let maxTemp = (document.querySelector(
-    "#maxTemp"
-  ).innerHTML = maximumTemperature);
+  let maxTemp = (document.querySelector("#maxTemp").innerHTML = Math.round(
+    response.data.main.temp_max
+  ));
   // change the weather description
-  let weatherInput = response.data.weather[0].description;
-  let description = (document.querySelector(
-    "#textBig"
-  ).innerHTML = weatherInput);
+  let description = (document.querySelector("#textBig").innerHTML =
+    response.data.weather[0].description);
   //define and show wind
-  let windInput = Math.round(response.data.wind.speed);
-  let wind = (document.querySelector("#wind").innerHTML = windInput);
+  let wind = (document.querySelector("#wind").innerHTML = Math.round(
+    response.data.wind.speed
+  ));
   //define and feels like
-  let feelsLikeInput = Math.round(response.data.main.feels_like);
-  let feelsLike = (document.querySelector(
-    "#feelsLike"
-  ).innerHTML = feelsLikeInput);
+  let feelsLike = (document.querySelector("#feelsLike").innerHTML = Math.round(
+    response.data.main.feels_like
+  ));
   //define and show cloud %cloud
-  let cloudsInput = Math.round(response.data.clouds.all);
-  let clouds = (document.querySelector("#clouds").innerHTML = cloudsInput);
+  let clouds = (document.querySelector("#clouds").innerHTML = Math.round(
+    response.data.clouds.all
+  ));
   //define and show humidity
-  let humidtyInput = Math.round(response.data.main.humidity);
-  let humidity = (document.querySelector("#humidity").innerHTML = humidtyInput);
-  let visibility = Number(response.data.sys.visibility);
+  let humidity = (document.querySelector("#humidity").innerHTML = Math.round(
+    response.data.main.humidity
+  ));
+  //define and access timezone
   let timezone = response.data.timezone;
+  //change sunsire accordingly to timezone
   sunriseText.innerHTML = sunTime(
+    //3600 == minus 1h because of summer time from Mar 28 –  Oct 31
     (response.data.sys.sunrise + timezone - 3600) * 1000
   );
-  //3600 == minus 1h because of summer time from Mar 28 –  Oct 31
+  //change sunsire accordingly to timezone
   sunsetText.innerHTML = sunTime(
+    //3600 == minus 1h because of summer time from Mar 28 –  Oct 31
     (response.data.sys.sunset + timezone - 3600) * 1000
   );
   //alert(typeof(visibility));
   changeIcon(response);
 }
+
+//create global variable to be accessed everywhere
+let celsiusTemperature = null;
 
 // change the city in the URL to the searched input
 function searchCity(city) {
@@ -246,35 +256,46 @@ data.weather[0].main="Snow"/.description="light snow"
 data.weather[0].main="Snow"/.description="heavy snow"
 */
 
-/*
+let celsiusButton = document
+  .querySelector("#celsius")
+  .addEventListener("click", changeTempC);
+let fahrenheitButton = document
+  .querySelector("#fahrenheit")
+  .addEventListener("click", changeTempF);
+
+function changeTempC(event) {
+  event.preventDefault();
+  alert("Ok");
+}
+
 //change cº to fº
-let changTempButton = document.querySelector("#changeTemp");
-changTempButton.addEventListener("click", changeTemperature);
-function changeTemperature() {
+function changeTempF(event) {
+  event.preventDefault();
   let bigTemp = document.querySelector("#bigTemp");
-  tempNow = Number(bigTemp.innerText);
+  let tempNow = Number(bigTemp.innerText);
   tempNow = Math.round(tempNow * 1.8 + 32);
+  alert(tempNow.value);
   let textTemp = document.querySelector("#bigTempText");
-  textTemp.innerHTML = `${tempNow}ºF`;
+  bigTemp.innerHTML = `${tempNow}`;
 
   let minTemp = document.querySelector("#minTemp");
-  tempNowMin = Number(minTemp.innerText);
+  let tempNowMin = Number(minTemp.innerText);
   tempNowMin = Math.round(tempNowMin * 1.8 + 32);
   minTemp.innerHTML = `${tempNowMin}`;
 
   let maxTemp = document.querySelector("#maxTemp");
-  tempNowMax = Number(maxTemp.innerText);
+  let tempNowMax = Number(maxTemp.innerText);
   tempNowMax = Math.round(tempNowMax * 1.8 + 32);
   maxTemp.innerHTML = `${tempNowMax}`;
-
-  let buttonChange = document.querySelector("#changeTemp");
-  buttonChange.innerHTML = "Change to Cº";
 
   let feelsLike = document.querySelector("#feelsLike");
   tempFeels = Number(feelsLike.innerText);
   tempFeels = Math.round(tempFeels * 1.8 + 32);
   feelsLike.innerHTML = `${tempFeels}`;
+}
 
+let celsiusTemp = null;
+/*
   //not working
   let nextDay = document.querySelectorAll("span", ".tempSide");
   tempNext = Number(nextDay.innerText);
@@ -282,8 +303,7 @@ function changeTemperature() {
   nextDay.innerHTML = `${tempNext}`;
 }
 */
-
-/*NA
+/*
 //show more details button
 let plusButton = document.querySelector("#plus");
 plusButton.addEventListener("click", showMore);
@@ -304,8 +324,8 @@ function cancelButton() {
   div.style.display = "none";
 }
 */
-
-/*data options
+/*
+data options
 data.weather[0].main="Rain"/.description="light rain"
 data.weather[0].main="Rain"/.description="moderate rain"
 data.weather[0].main="Rain"/.description="heavy intensity rain"
@@ -318,4 +338,5 @@ data.weather[0].main="Clouds"/.description="scattered clouds"
 data.weather[0].main="Clouds"/.description="few clouds"
 data.weather[0].main="Snow"/.description="light snow"
 data.weather[0].main="Snow"/.description="heavy snow"
+
 */
