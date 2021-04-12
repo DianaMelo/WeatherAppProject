@@ -241,11 +241,6 @@ input[type="text"] {
     cursor: pointer;
      padding: 1px;
   }
-  #celsius:active,
-  #fahrenheit:active {
-   border: 1px solid #fff;
-
-  }
   .cityDiv {
     margin-top: 0px;
     display: block;

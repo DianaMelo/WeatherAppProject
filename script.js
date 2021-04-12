@@ -46,8 +46,9 @@ let days = [
   "Saturday",
 ];
 let day = days[now.getDay()];
-let currentDay = document.getElementById("day");
-currentDay.innerHTML = `<strong>${day}</srong>`;
+let currentDay = (document.getElementById(
+  "day"
+).innerHTML = `<strong>${day}</srong>`);
 
 //change the hours and minutes
 now.getHours();
@@ -84,7 +85,6 @@ let year = now.getFullYear();
 document.getElementById("fullDate").innerHTML = `${date} of ${month}, ${year}`;
 
 //change Location/City accordingly to the search input
-//!!! if I press enter it call the function to current location and not the form city search !!!
 let locationButton = document
   .querySelector("#currentLocation")
   .addEventListener("click", showTemp); //should be geolocation
@@ -97,23 +97,22 @@ let buttonSearch = document
 
 //show temperature according to our search input
 function showTemp(response) {
-  console.log(response.data);
   //console.log(response.data.main.temp);
-  //show searched city
-  celsiusTemp = response.data.main.temp;
+  console.log(response.data);
 
-  let sunriseText = document.querySelector("#sunrise");
-  let sunsetText = document.querySelector("#sunset");
+  //define and show city and country
   let city = response.data.name;
   let country = response.data.sys.country;
   let heading = (document.querySelector(
     "#currentCity"
   ).innerHTML = `${city}, ${country}`);
 
-  celsiusTemperature = Math.round(response.data.main.temp);
-
+  //define celsius temperature
+  //celsiusTemperature = Math.round(response.data.main.temp);
   //define main temp as the celsius temperature
-  let temperature = celsiusTemperature;
+
+  let temperature = Math.round(response.data.main.temp);
+
   //define and show main temp
   let mainTemp = (document.querySelector(
     "#bigTemp"
@@ -147,22 +146,22 @@ function showTemp(response) {
   ));
   //define and access timezone
   let timezone = response.data.timezone;
-  //change sunsire accordingly to timezone
-  sunriseText.innerHTML = sunTime(
+  //define and change sunsire accordingly to timezone
+  let sunriseText = (document.querySelector("#sunrise").innerHTML = sunTime(
     //3600 == minus 1h because of summer time from Mar 28 –  Oct 31
     (response.data.sys.sunrise + timezone - 3600) * 1000
-  );
-  //change sunsire accordingly to timezone
-  sunsetText.innerHTML = sunTime(
+  ));
+  //define and change sunsire accordingly to timezone
+  let sunsetText = (document.querySelector("#sunset").innerHTML = sunTime(
     //3600 == minus 1h because of summer time from Mar 28 –  Oct 31
     (response.data.sys.sunset + timezone - 3600) * 1000
-  );
+  ));
   //alert(typeof(visibility));
   changeIcon(response);
 }
 
 //create global variable to be accessed everywhere
-let celsiusTemperature = null;
+//let celsiusTemperature = null;
 
 // change the city in the URL to the searched input
 function searchCity(city) {
@@ -180,25 +179,27 @@ function handleSubmit(event) {
   searchCity(city);
 }
 
+// change the city in the URL to your current location accordingly to your coordinates
 function searchLocation(position) {
   let apiKey = "152e233758619b99e839957040e5e546";
   let unit = "metric";
-
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=${unit}`;
   axios.get(apiUrl).then(showTemp);
   console.log(apiUrl);
 }
 
 //change the 1st input once loaded to our current location
-let currentLocalButton = document.querySelector("#currentLocation");
-currentLocalButton.addEventListener("click", getCurrentLocation);
+let currentLocalButton = document
+  .querySelector("#currentLocation")
+  .addEventListener("click", getCurrentLocation);
 
 function getCurrentLocation(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(searchLocation);
 }
 
-searchCity("Porto"); //makes the default value of Porto, instead of showing empty once you load the page
+//makes the default value of Porto, instead of showing empty once you load the page
+searchCity("Porto");
 
 function changeIcon(response) {
   //change icon
@@ -241,33 +242,18 @@ function sunTime(timestamp) {
 }
 //see how to change the icon at night(hour)
 
-/*data options
-data.weather[0].main="Rain"/.description="light rain"
-data.weather[0].main="Rain"/.description="moderate rain"
-data.weather[0].main="Rain"/.description="heavy intensity rain"
-data.weather[0].main="Drizzle"/.description="light intensity drizzle"
-data.weather[0].main="Clear"/.description="clear sky"
-data.weather[0].main="Haze"/.description="haze"
-data.weather[0].main="Clouds"/.description="broken clouds"
-data.weather[0].main="Clouds"/.description="overcast clouds"
-data.weather[0].main="Clouds"/.description="scattered clouds"
-data.weather[0].main="Clouds"/.description="few clouds"
-data.weather[0].main="Snow"/.description="light snow"
-data.weather[0].main="Snow"/.description="heavy snow"
-*/
-
+//define celsius button and add event listener
 let celsiusButton = document
   .querySelector("#celsius")
-  .addEventListener("click", changeTempC);
+  .addEventListener("click", searchCity);
+
+//define fahrenheit button and add event listener
 let fahrenheitButton = document
   .querySelector("#fahrenheit")
-  .addEventListener("click", changeTempF);
+  .addEventListener("click", searchCity);
+//I wanted to create a new parameter to change the unit from metric to imperial, for ex: searchCity(city, unit="imperial")
 
-function changeTempC(event) {
-  event.preventDefault();
-  alert("Ok");
-}
-
+/*
 //change cº to fº
 function changeTempF(event) {
   event.preventDefault();
@@ -295,48 +281,4 @@ function changeTempF(event) {
 }
 
 let celsiusTemp = null;
-/*
-  //not working
-  let nextDay = document.querySelectorAll("span", ".tempSide");
-  tempNext = Number(nextDay.innerText);
-  tempNext = Math.round(tempNext * 1.8 + 32);
-  nextDay.innerHTML = `${tempNext}`;
-}
-*/
-/*
-//show more details button
-let plusButton = document.querySelector("#plus");
-plusButton.addEventListener("click", showMore);
-function showMore() {
-  let div = document.getElementById("bottomDiv");
-  let iconPlus = document.getElementById("plus");
- div.style.display = "block";
- iconPlus.style.display = "none";
-}
-
-//cancel show more details button
-let cancelationButton = document.querySelector("#cancelButton");
-cancelationButton.addEventListener("click", cancelButton);
-
-function cancelButton() {
-  let cancel = document.getElementById("cancelButton");
-  let div = document.getElementById("bottomDiv");
-  div.style.display = "none";
-}
-*/
-/*
-data options
-data.weather[0].main="Rain"/.description="light rain"
-data.weather[0].main="Rain"/.description="moderate rain"
-data.weather[0].main="Rain"/.description="heavy intensity rain"
-data.weather[0].main="Drizzle"/.description="light intensity drizzle"
-data.weather[0].main="Clear"/.description="clear sky"
-data.weather[0].main="Haze"/.description="haze"
-data.weather[0].main="Clouds"/.description="broken clouds"
-data.weather[0].main="Clouds"/.description="overcast clouds"
-data.weather[0].main="Clouds"/.description="scattered clouds"
-data.weather[0].main="Clouds"/.description="few clouds"
-data.weather[0].main="Snow"/.description="light snow"
-data.weather[0].main="Snow"/.description="heavy snow"
-
 */
