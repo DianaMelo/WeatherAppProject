@@ -26,7 +26,7 @@ body {
 }
 .container {
   width: 70%;
-  height: 95vh;
+  height: 92vh;
   display: block;
   margin: 0 auto;
   margin-top: 20px;
@@ -99,7 +99,8 @@ input[type="text"] {
 #imgWeather {
   display: none;
 }
-#bigTemp, #degrees {
+#bigTemp,
+#degrees {
   font-size: 5em;
 }
 .tempNav {
@@ -156,12 +157,14 @@ input[type="text"] {
 .minTemp {
   color: rgb(201, 199, 199);
 }
-#gitLink {
+#gitText {
   text-decoration: none;
-  color: #fff;
-  float: right;
+  color: #000;
   margin-right: 2vw;
   margin-top: -3vh;
+  font-size: 0.8em;
+  margin-top: 8px;
+   margin-bottom: 0;
 }
 #gitLink:hover {
   font-weight: bold;
@@ -190,18 +193,18 @@ input[type="text"] {
   #imgWeather {
     width: 15vw;
   }
-  #plusDiv {
-    margin-left: 1.6vw;
-  }
   .container {
-    height: 98vh;
+    height: 93vh;
     width: 40%;
     margin-top: 10px;
   }
   h1 {
+    margin-top: -1vh;
     font-size: 2em;
   }
   h2 {
+    
+    margin-top: -2vh;
     font-size: 0.7em;
   }
   #searchForm,
@@ -239,7 +242,7 @@ input[type="text"] {
   #celsius:hover,
   #fahrenheit:hover {
     cursor: pointer;
-     padding: 1px;
+    padding: 1px;
   }
   .cityDiv {
     margin-top: 0px;
@@ -279,6 +282,11 @@ input[type="text"] {
     border-bottom: 1px solid #fff;
   }
   .divTempNextDays {
+   
+    margin-top: -3.5vh;
+  }
+  .divDetails {
+ 
     margin-top: -2vh;
   }
   .colDivDetails {
@@ -297,6 +305,12 @@ input[type="text"] {
   }
   .bottomTextTemp {
     padding-top: 0vh;
+  }
+  #gitText {
+    text-align: center;
+    font-size: 1em;
+    margin-top: 5px;
+    margin-bottom: 0;
   }
   .sunTime {
     display: block;

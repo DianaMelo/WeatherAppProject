@@ -4,7 +4,7 @@ function changeColor() {
   let now = new Date();
   now.getHours();
   let hour = now.getHours();
-  let sentence = document.querySelector("h2#nameGreeting");
+  let sentence = document.querySelector("h3#nameGreeting");
   if (hour >= 0 && hour <= 6) {
     sentence.innerHTML = `Good morning`;
     document.body.style.background =
