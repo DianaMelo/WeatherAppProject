@@ -84,6 +84,38 @@ let buttonSearch = document
   .querySelector("#searchButton")
   .addEventListener("click", handleSubmit);
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
+  let forecastHtml = `<div class="row">`;
+  days.forEach(function (day) {
+    forecastHtml =
+      forecastHtml +
+      `
+      <div class="col-2">
+          <div class="weatherFDate">${day}</div>
+      
+      
+          <div>
+          <img src="imgs/bSun.png" alt="icon" width="30px">
+      </div>
+      
+          <div class="weatherFTemp">
+         <div>25º</div>
+         </div>
+      
+          <div class="weatherFTemp minTemp">
+          <div>15º</div>
+          </div>
+     </div>
+      `;
+  });
+  forecastHtml = forecastHtml + `</div>`;
+  forecastElement.innerHTML = forecastHtml;
+  console.log(forecastHtml);
+}
+
 //show temperature according to our search input
 function showTemp(response) {
   //console.log(response.data.main.temp);
@@ -142,6 +174,7 @@ function showTemp(response) {
   ));
 
   changeIcon(response);
+  displayForecast();
 }
 
 // change the city in the URL to the searched input
