@@ -158,13 +158,12 @@ input[type="text"] {
   color: rgb(201, 199, 199);
 }
 #gitText {
+  text-align: center;
   text-decoration: none;
   color: #000;
-  margin-right: 2vw;
-  margin-top: -3vh;
-  font-size: 0.8em;
-  margin-top: 8px;
-   margin-bottom: 0;
+  margin-top: 10px;
+  margin-bottom: 0;
+  font-size: 0.6em;
 }
 #gitLink:hover {
   font-weight: bold;
@@ -174,6 +173,9 @@ input[type="text"] {
 }
 .sunTime {
   display: none;
+}
+#uvIndexImg {
+  width: 25px;
 }
 /*media queries, 1 breakpoint only*/
 @media screen and (min-width: 900px) {
@@ -203,7 +205,6 @@ input[type="text"] {
     font-size: 2em;
   }
   h2 {
-    
     margin-top: -2vh;
     font-size: 0.7em;
   }
@@ -282,11 +283,9 @@ input[type="text"] {
     border-bottom: 1px solid #fff;
   }
   .divTempNextDays {
-   
     margin-top: -3.5vh;
   }
   .divDetails {
- 
     margin-top: -2vh;
   }
   .colDivDetails {
@@ -308,9 +307,8 @@ input[type="text"] {
   }
   #gitText {
     text-align: center;
-    font-size: 1em;
-    margin-top: 5px;
-    margin-bottom: 0;
+    margin-top: 14px;
+    font-size: 0.8em;
   }
   .sunTime {
     display: block;

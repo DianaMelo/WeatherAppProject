@@ -86,8 +86,9 @@ let buttonSearch = document
 
 //create and multiply the display for forecast in html
 function displayForecast(response) {
-  console.log(response.data.daily);
-
+  console.log(response.data);
+  let uvindex = (document.querySelector("#uvindex").innerHTML =
+    response.data.current.uvi);
   let forecastElement = document.querySelector("#forecast");
   let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
   let forecastHtml = `<div class="row">`;
