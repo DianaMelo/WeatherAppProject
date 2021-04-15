@@ -84,9 +84,11 @@ let buttonSearch = document
   .querySelector("#searchButton")
   .addEventListener("click", handleSubmit);
 
-function displayForecast() {
-  let forecastElement = document.querySelector("#forecast");
+//create and multiply the display for forecast in html
+function displayForecast(response) {
+  console.log(response.data.daily);
 
+  let forecastElement = document.querySelector("#forecast");
   let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
   let forecastHtml = `<div class="row">`;
   days.forEach(function (day) {
@@ -113,7 +115,17 @@ function displayForecast() {
   });
   forecastHtml = forecastHtml + `</div>`;
   forecastElement.innerHTML = forecastHtml;
-  console.log(forecastHtml);
+  //console.log(forecastHtml);
+}
+
+//get and display the coordinates(latitude and longitude (response.data.coord)) from the original API, called in the showTemp function
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let unit = "metric";
+  let apiKey = "152e233758619b99e839957040e5e546";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${unit}`;
+  console.log(apiUrl);
+  axios.get(apiUrl).then(displayForecast);
 }
 
 //show temperature according to our search input
@@ -174,7 +186,8 @@ function showTemp(response) {
   ));
 
   changeIcon(response);
-  displayForecast();
+  //displayForecast();
+  getForecast(response.data.coord);
 }
 
 // change the city in the URL to the searched input
