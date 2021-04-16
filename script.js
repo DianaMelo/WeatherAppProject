@@ -20,7 +20,8 @@ function changeColor() {
   } else if (hour < 24) {
     sentence.innerHTML = `Good evening`;
     document.body.style.background =
-      "linear-gradient(to right, #928DAB, #3b2e88ad)";
+      "linear-gradient(to right, #5473b9, #212f4d)";
+    let git = (document.querySelector("#gitText").style.color = "#fff");
   } else {
     sentence.innerHTML = `Hello`;
     document.body.style.background =
@@ -84,40 +85,79 @@ let buttonSearch = document
   .querySelector("#searchButton")
   .addEventListener("click", handleSubmit);
 
+//change the display of forecast days
+  function formatDay(timestamp) {
+    //to convert the timestamp from a number to a 
+    let date = new Date(timestamp * 1000);
+    console.log(date);
+    let day = date.getDay();
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+    return days[day];
+  }
+  
 //create and multiply the display for forecast in html
 function displayForecast(response) {
   console.log(response.data);
-  let uvindex = (document.querySelector("#uvindex").innerHTML =
-    response.data.current.uvi);
+
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
+
   let forecastHtml = `<div class="row">`;
-  days.forEach(function (day) {
-    forecastHtml =
-      forecastHtml +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index > 0 && index < 7) {
+      forecastHtml =
+        forecastHtml +
+        `
       <div class="col-2">
-          <div class="weatherFDate">${day}</div>
+          <div class="weatherFDate">${formatDay(forecastDay.dt)}</div>
       
       
           <div>
-          <img src="imgs/bSun.png" alt="icon" width="30px">
+          <img src="changeIconSmall(response)" alt="icon" width="30px" id="imgWeatherIcon">
       </div>
       
           <div class="weatherFTemp">
-         <div>25º</div>
+         <div>${Math.round(forecastDay.temp.max)}º</div>
          </div>
       
           <div class="weatherFTemp minTemp">
-          <div>15º</div>
+          <div>${Math.round(forecastDay.temp.min)}º</div>
           </div>
      </div>
       `;
+    }
   });
+ 
+
+  function changeIconSmall(response) {
+    response = response.data.daily[1].weather[0].main;
+    //change icon
+    let iconSmall = document.querySelector("#imgWeatherIcon");
+    if (response === "Clear") {
+      iconSmall.setAttribute("src", "imgs/bSun.png");
+    } else if (response === "Rain") {
+      iconSmall.setAttribute("src", "imgs/bRain.png");
+    } else if (response === "Clouds") {
+      iconSmall.setAttribute("src", "imgs/bCloud.png");
+    } else if (response === "Snow") {
+      iconSmall.setAttribute("src", "imgs/bSnow.png");
+    } else if (response === "Haze") {
+      iconSmall.setAttribute("src", "imgs/bHaze.png");
+    } else if (response === "Thunderstorm") {
+      iconSmall.setAttribute("src", "imgs/bStorm.png");
+    } else {
+      iconSmall.setAttribute("src", "imgs/bFogMist.png");
+    }
+  }
+  
+  //alert(response.data.daily[1].weather[0].main); //test only
   forecastHtml = forecastHtml + `</div>`;
   forecastElement.innerHTML = forecastHtml;
-  //console.log(forecastHtml);
+  //console.log(forecastHtml); //test only
+  changeIconSmall(response);
 }
+
 
 //get and display the coordinates(latitude and longitude (response.data.coord)) from the original API, called in the showTemp function
 function getForecast(coordinates) {
@@ -227,6 +267,7 @@ searchCity("Porto");
 function changeIcon(response) {
   //change icon
   let icon = document.querySelector("#imgWeather");
+  let iconSmall = document.querySelector("#imgWeatherIcon");
   //let forecast = document.querySelector("#");
   let weatherInput = response.data.weather[0].description;
   let weatherInputMain = response.data.weather[0].main;
