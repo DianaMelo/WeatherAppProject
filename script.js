@@ -128,7 +128,7 @@ function displayForecast(response) {
       `;
     }
   });
- 
+  
 
   function changeIconSmall(response) {
     response = response.data.daily[1].weather[0].main;
