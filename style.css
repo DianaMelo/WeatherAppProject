@@ -20,9 +20,7 @@ body {
   font-family: "Hind", sans-serif;
   font-family: "Titillium Web", sans-serif;
   color: rgba(0, 0, 0, 0.788);
-  background: #efefbb;
-  background: -webkit-linear-gradient(to right, #b2afcf, #dddd86d3);
-  background: linear-gradient(to right, #b2afcf, #dddd86d3);
+  background: rgb(255, 255, 255);
 }
 .container {
   width: 70%;
@@ -42,6 +40,7 @@ h1 {
 }
 h2 {
   font-size: 1.5em;
+  
 }
 #currentLocation,
 #searchButton {
@@ -79,7 +78,6 @@ input[type="text"] {
 .cityDiv {
   color: rgb(255, 238, 0);
   margin-top: -10px;
-  margin-left: 2vw;
   width: 60vw;
   max-width: 60vw;
   height: 10vh;
@@ -119,7 +117,7 @@ input[type="text"] {
   font-size: 1em;
 }
 #maxTempP {
-  border-bottom: 1px solid rgb(94, 92, 92);
+ border-bottom: 1px solid #fff;
 }
 .divTempNextDays,
 .divDetails {

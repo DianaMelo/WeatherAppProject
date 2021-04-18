@@ -7,25 +7,14 @@ function changeColor() {
   let sentence = document.querySelector("h3#nameGreeting");
   if (hour >= 0 && hour <= 6) {
     sentence.innerHTML = `Good morning`;
-    document.body.style.background =
-      "linear-gradient(to right, #b2afcf, #dddd86d3)";
   } else if (hour < 12) {
     sentence.innerHTML = `Good morning`;
-    document.body.style.background =
-      "linear-gradient(to right, #e9d38be7, #e98a0575)";
   } else if (hour >= 12 && hour < 20) {
     sentence.innerHTML = `Good afternoon`;
-    document.body.style.background =
-      "linear-gradient(to right, #D6A4A4, #DAE2F8)";
   } else if (hour < 24) {
     sentence.innerHTML = `Good evening`;
-    document.body.style.background =
-      "linear-gradient(to right, #5473b9, #212f4d)";
-    let git = (document.querySelector("#gitText").style.color = "#fff");
   } else {
     sentence.innerHTML = `Hello`;
-    document.body.style.background =
-      "linear-gradient(to right, #b2afcf, #dddd86d3)";
   }
 }
 //change the day
@@ -95,14 +84,12 @@ let buttonSearch = document
 
     return days[day];
   }
-  
+ 
 //create and multiply the display for forecast in html
 function displayForecast(response) {
   console.log(response.data);
-
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
-
   let forecastHtml = `<div class="row">`;
   forecast.forEach(function (forecastDay, index) {
     if (index > 0 && index < 7) {
@@ -111,16 +98,14 @@ function displayForecast(response) {
         `
       <div class="col-2">
           <div class="weatherFDate">${formatDay(forecastDay.dt)}</div>
-      
-      
           <div>
-          <img src="changeIconSmall(response)" alt="icon" width="30px" id="imgWeatherIcon">
+          <img src="${changeIconSmall(
+            forecastDay.weather[0].main
+          )}" alt="icon" width="30px" id="imgWeatherIcon">
       </div>
-      
           <div class="weatherFTemp">
          <div>${Math.round(forecastDay.temp.max)}º</div>
          </div>
-      
           <div class="weatherFTemp minTemp">
           <div>${Math.round(forecastDay.temp.min)}º</div>
           </div>
@@ -128,29 +113,28 @@ function displayForecast(response) {
       `;
     }
   });
-  
 
-  function changeIconSmall(response) {
-    response = response.data.daily[1].weather[0].main;
+  function changeIconSmall(weather) {
     //change icon
-    let iconSmall = document.querySelector("#imgWeatherIcon");
-    if (response === "Clear") {
-      iconSmall.setAttribute("src", "imgs/bSun.png");
-    } else if (response === "Rain") {
-      iconSmall.setAttribute("src", "imgs/bRain.png");
-    } else if (response === "Clouds") {
-      iconSmall.setAttribute("src", "imgs/bCloud.png");
-    } else if (response === "Snow") {
-      iconSmall.setAttribute("src", "imgs/bSnow.png");
-    } else if (response === "Haze") {
-      iconSmall.setAttribute("src", "imgs/bHaze.png");
-    } else if (response === "Thunderstorm") {
-      iconSmall.setAttribute("src", "imgs/bStorm.png");
+    let iconSmall = "";
+    if (weather === "Clear") {
+      iconSmall = "imgs/bSun.png";
+    } else if (weather === "Rain") {
+      iconSmall = "imgs/bRain.png";
+    } else if (weather === "Clouds") {
+      iconSmall = "imgs/bCloud.png";
+    } else if (weather === "Snow") {
+      iconSmall = "imgs/bSnow.png";
+    } else if (weather === "Haze") {
+      iconSmall = "imgs/bHaze.png";
+    } else if (weather === "Thunderstorm") {
+      iconSmall = "imgs/bStorm.png";
     } else {
-      iconSmall.setAttribute("src", "imgs/bFogMist.png");
+      iconSmall = "imgs/bFogMist.png";
     }
+    return iconSmall;
   }
-  
+
   //alert(response.data.daily[1].weather[0].main); //test only
   forecastHtml = forecastHtml + `</div>`;
   forecastElement.innerHTML = forecastHtml;
