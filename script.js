@@ -1,6 +1,6 @@
 //change greeting accordingly to hour
-changeColor();
-function changeColor() {
+changeGreeting();
+function changeGreeting() {
   let now = new Date();
   now.getHours();
   let hour = now.getHours();
@@ -19,6 +19,9 @@ function changeColor() {
 }
 //change the day
 let now = new Date();
+//access offset time = returns the time difference between UTC time and local time, in minutes.
+let utctime = now.getTimezoneOffset();
+
 let days = [
   "Sunday",
   "Monday",
@@ -62,7 +65,6 @@ let month = months[now.getMonth()];
 let date = now.getDate();
 let year = now.getFullYear();
 document.getElementById("fullDate").innerHTML = `${date} of ${month}, ${year}`;
-
 //change Location/City accordingly to the search input
 let locationButton = document
   .querySelector("#currentLocation")
@@ -75,23 +77,23 @@ let buttonSearch = document
   .addEventListener("click", handleSubmit);
 
 //change the display of forecast days
-  function formatDay(timestamp) {
-    //to convert the timestamp from a number to a 
-    let date = new Date(timestamp * 1000);
-    console.log(date);
-    let day = date.getDay();
-    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+function formatDay(timestamp) {
+  //to convert the timestamp from a number to a
+  let date = new Date(timestamp * 1000);
+  //console.log(date); //test only
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-    return days[day];
-  }
- 
+  return days[day];
+}
+
 //create and multiply the display for forecast in html
 function displayForecast(response) {
-  console.log(response.data);
+  //console.log(response.data); //test only
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
   let forecastHtml = `<div class="row">`;
-  forecast.forEach(function (forecastDay, index) {
+  forecast.forEach((forecastDay, index) => {
     if (index > 0 && index < 7) {
       forecastHtml =
         forecastHtml +
@@ -114,8 +116,8 @@ function displayForecast(response) {
     }
   });
 
+  //change icon for forescast
   function changeIconSmall(weather) {
-    //change icon
     let iconSmall = "";
     if (weather === "Clear") {
       iconSmall = "imgs/bSun.png";
@@ -142,21 +144,21 @@ function displayForecast(response) {
   changeIconSmall(response);
 }
 
-
 //get and display the coordinates(latitude and longitude (response.data.coord)) from the original API, called in the showTemp function
 function getForecast(coordinates) {
-  console.log(coordinates);
-  let unit = "metric";
+ // console.log(coordinates); // test only
+  // let unit = "metric";
   let apiKey = "152e233758619b99e839957040e5e546";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${unit}`;
-  console.log(apiUrl);
+  let lat = coordinates.lat;
+  let lon = coordinates.lon;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?&lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
+  //console.log(apiUrl); //test only
   axios.get(apiUrl).then(displayForecast);
 }
 
 //show temperature according to our search input
 function showTemp(response) {
-  //console.log(response.data.main.temp);
-  console.log(response.data);
+  //console.log(response.data.timezone); //test only
   //define and show city and country
   let city = response.data.name;
   let country = response.data.sys.country;
@@ -182,9 +184,18 @@ function showTemp(response) {
   let description = (document.querySelector("#textBig").innerHTML =
     response.data.weather[0].description);
   //define and show wind
-  let wind = (document.querySelector("#wind").innerHTML = Math.round(
-    response.data.wind.speed
-  ));
+  let wind = windConverter(unit);
+
+  function windConverter(unit) {
+    let wind = document.querySelector("#wind");
+    let windInput = response.data.wind.speed;
+    if (unit === "metric") {
+      wind.innerHTML = `${Math.round(windInput * 3.6)}km/h`;
+    } else {
+      wind.innerHTML = `${Math.round(windInput)}mph`;
+    }
+  }
+
   //define and feels like
   let feelsLike = (document.querySelector("#feelsLike").innerHTML = Math.round(
     response.data.main.feels_like
@@ -199,17 +210,25 @@ function showTemp(response) {
   ));
   //define and access timezone
   let timezone = response.data.timezone;
-  //define and change sunsire accordingly to timezone
-  let sunriseText = (document.querySelector("#sunrise").innerHTML = sunTime(
-    //3600 == minus 1h because of summer time from Mar 28 –  Oct 31
-    (response.data.sys.sunrise + timezone - 3600) * 1000
-  ));
-  //define and change sunsire accordingly to timezone
-  let sunsetText = (document.querySelector("#sunset").innerHTML = sunTime(
-    //3600 == minus 1h because of summer time from Mar 28 –  Oct 31
-    (response.data.sys.sunset + timezone - 3600) * 1000
-  ));
-
+  //define and change sunsire and sunset accordingly to timezone
+  let sunriseText = document.querySelector("#sunrise");
+  let sunsetText = document.querySelector("#sunset");
+  //3600 == minus 1h because of summer time from Mar 28 –  Oct 31
+  if (utctime < 0) {
+    sunriseText.innerHTML = sunTime(
+      (response.data.sys.sunrise + timezone - 3600) * 1000
+    );
+    sunsetText.innerHTML = sunTime(
+      (response.data.sys.sunset + timezone - 3600) * 1000
+    );
+  } else {
+    sunriseText.innerHTML = sunTime(
+      (response.data.sys.sunrise + timezone) * 1000
+    );
+    sunsetText.innerHTML = sunTime(
+      (response.data.sys.sunset + timezone) * 1000
+    );
+  }
   changeIcon(response);
   //displayForecast();
   getForecast(response.data.coord);
@@ -234,7 +253,7 @@ function searchLocation(position) {
   let apiKey = "152e233758619b99e839957040e5e546";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=${unit}`;
   axios.get(apiUrl).then(showTemp);
-  console.log(apiUrl);
+  //console.log(apiUrl); //test only
 }
 //change the 1st input once loaded to our current location
 let currentLocalButton = document
@@ -248,19 +267,24 @@ function getCurrentLocation(event) {
 let unit = "metric";
 searchCity("Porto");
 
+//change icon
 function changeIcon(response) {
-  //change icon
   let icon = document.querySelector("#imgWeather");
-  let iconSmall = document.querySelector("#imgWeatherIcon");
-  //let forecast = document.querySelector("#");
+  let iconName = response.data.weather[0].icon;
   let weatherInput = response.data.weather[0].description;
   let weatherInputMain = response.data.weather[0].main;
-  if (weatherInputMain === "Clear") {
+  if (iconName === "01n") {
+    icon.setAttribute("src", "imgs/bSunN.png");
+  } else if (weatherInputMain === "Clear") {
     icon.setAttribute("src", "imgs/bSun.png");
+  } else if (iconName === "09n" || iconName === "10n") {
+    icon.setAttribute("src", "imgs/bRainN.png");
   } else if (weatherInputMain === "Rain" || weatherInput === "shower rain") {
     icon.setAttribute("src", "imgs/bRain.png");
   } else if (weatherInput === "light rain") {
     icon.setAttribute("src", "imgs/bRainy.png");
+  } else if (iconName === "02n" || iconName === "03n" || iconName === "04n") {
+    icon.setAttribute("src", "imgs/bCloudN.png");
   } else if (
     (weatherInputMain === "Clouds" && weatherInput === "few clouds") ||
     weatherInput === "scattered clouds"
@@ -286,7 +310,6 @@ function sunTime(timestamp) {
   minutes = ("0" + minutes).slice(-2);
   return `${hours}:${minutes}`;
 }
-//see how to change the icon at night(hour)
 
 //define celsius button and add event listener
 document.querySelector("#celsius").addEventListener("click", changeTempC);
@@ -294,6 +317,7 @@ function changeTempC(event) {
   event.preventDefault();
   unit = "metric";
   searchCity(document.querySelector("#currentCity").innerHTML);
+  getForecast();
 }
 //define fahrenheit button and add event listener
 document.querySelector("#fahrenheit").addEventListener("click", changeTempF);
@@ -301,4 +325,6 @@ function changeTempF(event) {
   event.preventDefault();
   unit = "imperial";
   searchCity(document.querySelector("#currentCity").innerHTML);
+  getForecast();
+  alert(wind);
 }
