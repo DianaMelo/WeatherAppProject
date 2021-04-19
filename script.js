@@ -146,7 +146,7 @@ function displayForecast(response) {
 
 //get and display the coordinates(latitude and longitude (response.data.coord)) from the original API, called in the showTemp function
 function getForecast(coordinates) {
- // console.log(coordinates); // test only
+  // console.log(coordinates); // test only
   // let unit = "metric";
   let apiKey = "152e233758619b99e839957040e5e546";
   let lat = coordinates.lat;
